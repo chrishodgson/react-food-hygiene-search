@@ -12,3 +12,5 @@ Checkout this repo, install dependencies, then start the webpack process with th
 > npm install
 > npm start
 ```
+
+This repo is work in Progress :)
