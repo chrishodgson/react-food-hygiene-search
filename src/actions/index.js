@@ -1,14 +1,29 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const ROOT_URL = `http://api.ratings.food.gov.uk`;
-export const FETCH_RATINGS = 'FETCH_RATINGS';
+const ROOT_URL = 'http://api.ratings.food.gov.uk';
+const CONFIG = {
+    headers: {'x-api-version': '2'}
+};
 
-export function fetchRatings(authority) {
-    const url = `${ROOT_URL}/Authorities/basic`;
-    const request = axios.get(url);
+export const FETCH_ESTABLISHMENTS = 'FETCH_ESTABLISHMENTS';
+export const FETCH_LOCAL_AUTHORITIES = 'FETCH_LOCAL_AUTHORITIES';
+
+export function fetchLocalAuthorities() {
+    const url = `${ROOT_URL}/Authorities/Basic`;
+    const request = axios.get(url, CONFIG);
 
     return {
-        type: FETCH_RATINGS,
+        type: FETCH_LOCAL_AUTHORITIES,
         payload: request
-    }
+    };
+}
+
+export function fetchEstablishments(localAuthorityId) {
+    const url = `${ROOT_URL}/Establishments?localAuthorityId=${localAuthorityId}`;
+    const request = axios.get(url, CONFIG);
+
+    return {
+        type: FETCH_ESTABLISHMENTS,
+        payload: request
+    };
 }
