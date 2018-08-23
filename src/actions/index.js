@@ -18,12 +18,14 @@ export function fetchLocalAuthorities() {
     };
 }
 
-export function fetchEstablishments(localAuthorityId) {
-    const url = `${ROOT_URL}/Establishments?localAuthorityId=${localAuthorityId}`;
+export function fetchEstablishments(localAuthorityId, callback) {
+    const url = `${ROOT_URL}/Establishments?localAuthorityId=${localAuthorityId}&pageNumber=0`;
+    // const request = axios.get(url, CONFIG).then(() => callback());
     const request = axios.get(url, CONFIG);
 
     return {
         type: FETCH_ESTABLISHMENTS,
         payload: request
     };
+
 }

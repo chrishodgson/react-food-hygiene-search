@@ -14,14 +14,14 @@ class SearchBar extends Component {
     }
 
     componentDidMount() {
-        console.log('SearchBar.componentDidMount');
         this.props.fetchLocalAuthorities();
     }
 
     onFormSubmit(event) {
         event.preventDefault();
-        this.props.fetchEstablishments(this.state.selectedLocalAuthority);
-        //this.setState({localAuthorities: []});
+        this.props.fetchEstablishments(this.state.selectedLocalAuthority, () => {
+            // this.props.history.push('/authority/' + this.state.selectedLocalAuthority);
+        });
     }
 
     onInputChange(event) {
@@ -29,9 +29,6 @@ class SearchBar extends Component {
     }
 
     render() {
-
-        console.log('SearchBar.render');
-
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
                 <input className="form-control"
@@ -46,8 +43,7 @@ class SearchBar extends Component {
 }
 
 function mapStateToProps({localAuthorities}) {
-    console.log(localAuthorities, 'SearchBar.mapStateToProps');
-    return {localAuthorities: localAuthorities};
+    return {localAuthorities};
 }
 
 export default connect(mapStateToProps, {fetchEstablishments, fetchLocalAuthorities})(SearchBar);

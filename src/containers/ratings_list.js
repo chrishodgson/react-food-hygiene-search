@@ -2,40 +2,22 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 class RatingsList extends Component {
-
-    componentDidMount() {
-        console.log('RatingsList.componentDidMount');
-    }
-
     renderRatings(establishment) {
         return (
             <tr key={establishment.FHRSID}>
                 <td>{establishment.BusinessName}</td>
-                <td>{establishment.RatingValue === 1 ? 'Yes' : 'No'}</td>
-                <td>{establishment.RatingValue === 2 ? 'Yes' : 'No'}</td>
-                <td>{establishment.RatingValue === 3 ? 'Yes' : 'No'}</td>
-                <td>{establishment.RatingValue === 4 ? 'Yes' : 'No'}</td>
-                <td>{establishment.RatingValue === 5 ? 'Yes' : 'No'}</td>
-                <td>{establishment.RatingValue === 'awaiting inspection' ? 'Yes' : 'No'}</td>
+                <td>{establishment.RatingValue}</td>
             </tr>
         );
     }
 
     render () {
-
-        console.log('RatingsList.render');
-
         return (
             <table className="table table-hover">
                 <thead>
                 <tr>
-                    <th>Local Authority</th>
-                    <th>Rating 1</th>
-                    <th>Rating 2</th>
-                    <th>Rating 3</th>
-                    <th>Rating 4</th>
-                    <th>Rating 5</th>
-                    <th>Other</th>
+                    <th>Establishment</th>
+                    <th>Rating</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,13 +28,13 @@ class RatingsList extends Component {
     }
 }
 
-function mapStateToProps({establishments}) {
+function mapStateToProps({establishments}, ownProps) {
 
-    console.log(establishments, 'RatingsList.mapStateToProps');
+    // console.log(establishments, 'rating_listing mapStateToProps - establishments');
+    // console.log(ownProps, 'rating_listing mapStateToProps - ownProps');
 
-    return {
-        establishments: establishments
-    };
+    return {establishments};
+    //return {establishments: ownProps.match.params.id ? establishments[ownProps.match.params.id] : establishments};
 }
 
 export default connect(mapStateToProps)(RatingsList);
