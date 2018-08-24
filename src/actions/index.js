@@ -12,20 +12,30 @@ export function fetchLocalAuthorities() {
     const url = `${ROOT_URL}/Authorities/Basic`;
     const request = axios.get(url, CONFIG);
 
-    return {
-        type: FETCH_LOCAL_AUTHORITIES,
-        payload: request
+    return dispatch => {
+        request.then(data => {
+            dispatch({type: FETCH_LOCAL_AUTHORITIES, payload: data});
+        });
     };
+
+    // return {
+    //     type: FETCH_LOCAL_AUTHORITIES,
+    //     payload: request
+    // };
 }
 
 export function fetchEstablishments(localAuthorityId, callback) {
     const url = `${ROOT_URL}/Establishments?localAuthorityId=${localAuthorityId}&pageNumber=0`;
     // const request = axios.get(url, CONFIG).then(() => callback());
+    // return {
+    //     type: FETCH_ESTABLISHMENTS,
+    //     payload: request
+    // };
+
     const request = axios.get(url, CONFIG);
-
-    return {
-        type: FETCH_ESTABLISHMENTS,
-        payload: request
+    return dispatch => {
+        request.then(data => {
+            dispatch({type: FETCH_ESTABLISHMENTS, payload: data});
+        }).then(() => callback());
     };
-
 }

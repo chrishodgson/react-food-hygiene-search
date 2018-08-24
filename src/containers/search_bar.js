@@ -20,7 +20,9 @@ class SearchBar extends Component {
     onFormSubmit(event) {
         event.preventDefault();
         this.props.fetchEstablishments(this.state.selectedLocalAuthority, () => {
-            // this.props.history.push('/authority/' + this.state.selectedLocalAuthority);
+            //this.props.history.push('/authority/' + this.state.selectedLocalAuthority);
+            //this.props.history.push('/');
+            console.log('running callback');
         });
     }
 
