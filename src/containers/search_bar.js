@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchLocalAuthorities, fetchEstablishments} from '../actions/index';
+import history from '../history';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -20,9 +21,7 @@ class SearchBar extends Component {
     onFormSubmit(event) {
         event.preventDefault();
         this.props.fetchEstablishments(this.state.selectedLocalAuthority, () => {
-            //this.props.history.push('/authority/' + this.state.selectedLocalAuthority);
-            //this.props.history.push('/');
-            console.log('running callback');
+            history.push('/authority/' + this.state.selectedLocalAuthority);
         });
     }
 
