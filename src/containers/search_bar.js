@@ -30,6 +30,10 @@ class SearchBar extends Component {
     }
 
     render() {
+        if (!this.props.localAuthorities) {
+            return <div>Loading local authority list...</div>;
+        }
+
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
                 <input className="form-control"

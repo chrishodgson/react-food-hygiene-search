@@ -12,6 +12,10 @@ class RatingsList extends Component {
     }
 
     render () {
+        if (!this.props.establishments) {
+            return null;
+        }
+
         return (
             <table className="table table-hover">
                 <thead>
