@@ -10,7 +10,7 @@ class SearchBar extends Component {
             selectedLocalAuthority: ''
         };
 
-        this.onInputChange = this.onInputChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
@@ -25,8 +25,17 @@ class SearchBar extends Component {
         });
     }
 
-    onInputChange(event) {
+    onChange(event) {
+        console.log(event.target.value, 'onChange');
         this.setState({selectedLocalAuthority: event.target.value});
+    }
+
+    renderlocalAuthorities(localAuthority) {
+        return (
+            <option
+                key={localAuthority.LocalAuthorityId}
+                value={localAuthority.LocalAuthorityId}>{localAuthority.Name}</option>
+        );
     }
 
     render() {
@@ -35,15 +44,25 @@ class SearchBar extends Component {
         }
 
         return (
-            <form onSubmit={this.onFormSubmit} className="input-group">
-                <input className="form-control"
-                       value={this.state.selectedLocalAuthority}
-                       onChange={this.onInputChange}/>
-                <span className="input-group-btn">
-                    <button type="submit" className="btn btn-secondary">Submit</button>
-                </span>
+            <form onSubmit={this.onFormSubmit} className="form-group">
+                <select className="form-control"
+                        onChange={this.onChange}
+                        value={this.state.selectedLocalAuthority}>
+                    {this.props.localAuthorities.map(this.renderlocalAuthorities)}
+                </select>
             </form>
         );
+
+        // return (
+        //     <form onSubmit={this.onFormSubmit} className="input-group">
+        //         <input className="form-control"
+        //                value={this.state.selectedLocalAuthority}
+        //                onChange={this.onInputChange}/>
+        //         <span className="input-group-btn">
+        //             <button type="submit" className="btn btn-secondary">Submit</button>
+        //         </span>
+        //     </form>
+        // );
     }
 }
 
