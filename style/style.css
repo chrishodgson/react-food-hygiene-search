@@ -1,3 +1,15 @@
-.input-group {
-    margin: 20px 0;
+a {
+    white-space: nowrap;
+}
+
+.list {
+    margin-top: 25px;
+}
+
+.item {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #eee;
+    border-radius: 5px;
 }

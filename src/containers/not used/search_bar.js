@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchLocalAuthorities, fetchEstablishments} from '../actions/index';
-import history from '../history';
+import {fetchLocalAuthorities, fetchEstablishments} from '../../actions/index';
+import history from '../../history';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -11,30 +11,25 @@ class SearchBar extends Component {
         };
 
         this.onChange = this.onChange.bind(this);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
     componentDidMount() {
         this.props.fetchLocalAuthorities();
     }
 
-    onFormSubmit(event) {
-        event.preventDefault();
-        this.props.fetchEstablishments(this.state.selectedLocalAuthority, () => {
-            history.push('/authority/' + this.state.selectedLocalAuthority);
-        });
-    }
-
     onChange(event) {
         console.log(event.target.value, 'onChange');
         this.setState({selectedLocalAuthority: event.target.value});
+        this.props.fetchEstablishments(this.state.selectedLocalAuthority, () => {
+            history.push('/authority/' + this.state.selectedLocalAuthority);
+        });
     }
 
     renderlocalAuthorities(localAuthority) {
         return (
             <option
                 key={localAuthority.LocalAuthorityId}
-                value={localAuthority.LocalAuthorityId}>{localAuthority.Name}</option>
+                value={localAuthority.LocalAuthorityId}>{localAuthority.Name} ({localAuthority.EstablishmentCount} Establishments)</option>
         );
     }
 
@@ -42,6 +37,8 @@ class SearchBar extends Component {
         if (!this.props.localAuthorities) {
             return <div>Loading local authority list...</div>;
         }
+
+console.log(this.props.localAuthorities, 'localAuthorities');
 
         return (
             <form onSubmit={this.onFormSubmit} className="form-group">
@@ -52,17 +49,6 @@ class SearchBar extends Component {
                 </select>
             </form>
         );
-
-        // return (
-        //     <form onSubmit={this.onFormSubmit} className="input-group">
-        //         <input className="form-control"
-        //                value={this.state.selectedLocalAuthority}
-        //                onChange={this.onInputChange}/>
-        //         <span className="input-group-btn">
-        //             <button type="submit" className="btn btn-secondary">Submit</button>
-        //         </span>
-        //     </form>
-        // );
     }
 }
 

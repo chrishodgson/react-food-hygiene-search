@@ -7,7 +7,9 @@ import thunk from 'redux-thunk';
 import history from './history';
 import reducers from './reducers';
 
-import App from './components/app';
+import RegionsList from './containers/regions_list';
+import LocalAuthoritiesList from './containers/local_authorities_list';
+import EstablishmentsList from './containers/establishments_list';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -15,8 +17,9 @@ ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <Router history={history}>
             <Switch>
-                <Route exact path="/" component={App}/>
-                <Route path="/authority/:id" component={App}/>
+                <Route exact path="/" component={RegionsList}/>
+                <Route path="/region/:id" component={LocalAuthoritiesList}/>
+                <Route path="/localAuthority/:id" component={EstablishmentsList}/>
             </Switch>
         </Router>
     </Provider>

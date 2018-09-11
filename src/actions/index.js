@@ -7,6 +7,18 @@ const CONFIG = {
 
 export const FETCH_ESTABLISHMENTS = 'FETCH_ESTABLISHMENTS';
 export const FETCH_LOCAL_AUTHORITIES = 'FETCH_LOCAL_AUTHORITIES';
+export const FETCH_REGIONS = 'FETCH_REGIONS';
+
+export function fetchRegions() {
+    const url = `${ROOT_URL}/Regions/Basic`;
+    const request = axios.get(url, CONFIG);
+
+    return dispatch => {
+        request.then(data => {
+            dispatch({type: FETCH_REGIONS, payload: data});
+        });
+    };
+}
 
 export function fetchLocalAuthorities() {
     const url = `${ROOT_URL}/Authorities/Basic`;
@@ -17,21 +29,10 @@ export function fetchLocalAuthorities() {
             dispatch({type: FETCH_LOCAL_AUTHORITIES, payload: data});
         });
     };
-
-    // return {
-    //     type: FETCH_LOCAL_AUTHORITIES,
-    //     payload: request
-    // };
 }
 
 export function fetchEstablishments(localAuthorityId, callback) {
     const url = `${ROOT_URL}/Establishments?localAuthorityId=${localAuthorityId}&pageNumber=0`;
-    // const request = axios.get(url, CONFIG).then(() => callback());
-    // return {
-    //     type: FETCH_ESTABLISHMENTS,
-    //     payload: request
-    // };
-
     const request = axios.get(url, CONFIG);
     return dispatch => {
         request.then(data => {
