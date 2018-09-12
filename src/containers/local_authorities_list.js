@@ -24,8 +24,12 @@ class LocalAuthoritiesList extends Component {
             return <div>Loading local authorities...</div>;
         }
         return (
-            <div className="list">
-                {this.props.localAuthorities.map(this.renderLinks)}
+            <div>
+                <Link to="/">Return to list of Regions</Link>
+                <h4>Local Authorities</h4>
+                <div className="list">
+                    {this.props.localAuthorities.map(this.renderLinks)}
+                </div>
             </div>
         );
     }

@@ -24,8 +24,11 @@ class RegionsList extends Component {
             return <div>Loading regions...</div>;
         }
         return (
-            <div className="list">
-                {this.props.regions.map(this.renderLinks)}
+            <div>
+                <h4>Regions</h4>
+                <div className="list">
+                    {this.props.regions.map(this.renderLinks)}
+                </div>
             </div>
         );
     }

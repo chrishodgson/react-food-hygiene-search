@@ -31,12 +31,13 @@ export function fetchLocalAuthorities() {
     };
 }
 
-export function fetchEstablishments(localAuthorityId, callback) {
+export function fetchEstablishments(localAuthorityId) {
     const url = `${ROOT_URL}/Establishments?localAuthorityId=${localAuthorityId}&pageNumber=0`;
     const request = axios.get(url, CONFIG);
+
     return dispatch => {
         request.then(data => {
             dispatch({type: FETCH_ESTABLISHMENTS, payload: data});
-        }).then(() => callback());
+        });
     };
 }
