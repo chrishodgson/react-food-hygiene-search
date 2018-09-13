@@ -7,6 +7,9 @@ class EstablishmentsList extends Component {
 
     componentDidMount() {
         const {id} = this.props.match.params;
+
+console.log(id, 'componentDidMount');
+
         if (!this.props.establishmentsArray) {
             this.props.fetchEstablishments(id);
         }
@@ -29,8 +32,7 @@ class EstablishmentsList extends Component {
         }
         return (
             <div>
-                <Link to={`/region/${this.props.localAuthority.LocalAuthorityId}}`}>Return to list of Local
-                    Authorities</Link>
+                {/*<Link to={`/region/${this.props.region.id}`}>Return to list of Local Authorities</Link>*/}
                 <h1>Establishments for {this.props.localAuthority.Name}</h1>
                 <div className="list">
                     {this.props.establishmentsArray.map(this.renderLinks)}
@@ -41,6 +43,9 @@ class EstablishmentsList extends Component {
 }
 
 function mapStateToProps({establishmentsBylocalAuthority, localAuthorities}, ownProps) {
+
+    //todo get the region for the id
+
     const localAuthority = localAuthorities[ownProps.match.params.id];
     const establishments = establishmentsBylocalAuthority && localAuthority ?
         establishmentsBylocalAuthority[localAuthority.LocalAuthorityIdCode] : null;
