@@ -6,7 +6,7 @@ import {fetchRegions} from '../actions/index';
 class RegionsList extends Component {
 
     componentDidMount() {
-        if (!this.props.regions) {
+        if (!this.props.regionsArray) {
             this.props.fetchRegions();
         }
     }
@@ -20,14 +20,15 @@ class RegionsList extends Component {
     }
 
     render() {
-        if (!this.props.regions) {
-            return <div>Loading regions...</div>;
+        if (!this.props.regionsArray) {
+            return <div>Loading regions...</div>
         }
+
         return (
             <div>
-                <h4>Regions</h4>
+                <h1>Regions</h1>
                 <div className="list">
-                    {this.props.regions.map(this.renderLinks)}
+                    {this.props.regionsArray.map(this.renderLinks)}
                 </div>
             </div>
         );
@@ -35,7 +36,8 @@ class RegionsList extends Component {
 }
 
 function mapStateToProps({regions}) {
-    return {regions};
+    const regionsArray = regions ? Object.values(regions) : regions;
+    return {regionsArray}
 }
 
 export default connect(mapStateToProps, {fetchRegions})(RegionsList);

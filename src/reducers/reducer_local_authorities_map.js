@@ -5,7 +5,7 @@ export default function (state = null, action) {
     switch (action.type) {
         case FETCH_LOCAL_AUTHORITIES:
             // return action.payload.data.authorities;
-            return _.mapKeys(action.payload.data.authorities, 'LocalAuthorityIdCode');
+            return _.mapKeys(action.payload.data.authorities, 'LocalAuthorityId');
     }
     return state;
 }

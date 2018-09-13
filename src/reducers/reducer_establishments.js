@@ -8,7 +8,7 @@ export default function (state = null, action) {
 
 console.log(localAuthorityCode, 'reducer - LocalAuthorityCode');
 
-            return localAuthorityCode ? { ...state, [localAuthorityCode]: establishments} : establishments;
+            return localAuthorityCode ? {...state, [localAuthorityCode]: establishments} : establishments;
     }
     return state;
 }

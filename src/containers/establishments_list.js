@@ -31,7 +31,7 @@ class EstablishmentsList extends Component {
             <div>
                 {/*todo use specific region id for link*/}
                 {/*<Link to={`/region/1`}>List of Local Authorities</Link>*/}
-                <h4>Establishments</h4>
+                <h1>Establishments</h1>
                 <div className="list">
                     {this.props.establishments.map(this.renderLinks)}
                 </div>
@@ -41,12 +41,15 @@ class EstablishmentsList extends Component {
 }
 
 function mapStateToProps({establishments, localAuthoritiesMap}, ownProps) {
-    // return {establishments: establishments[ownProps.match.params.id]}
 
-console.log(establishments, 'EstablishmentsList - mapStateToProps');
-console.log(localAuthoritiesMap, 'localAuthoritiesMap - mapStateToProps');
+    const localAuthority = localAuthoritiesMap[ownProps.match.params.id];
 
-    return {establishments: establishments}
+    console.log(localAuthority, 'lmapStateToProps - ocalAuthority');
+// console.log(establishments, 'EstablishmentsList - mapStateToProps');
+// console.log(localAuthoritiesMap, 'localAuthoritiesMap - mapStateToProps');
+
+    return {establishments: establishments[ownProps.match.params.id]}
+    //return {establishments: establishments}
 }
 
 export default connect(mapStateToProps, {fetchEstablishments})(EstablishmentsList);

@@ -6,7 +6,7 @@ import {fetchLocalAuthorities} from '../actions/index';
 class LocalAuthoritiesList extends Component {
 
     componentDidMount() {
-        if (!this.props.localAuthorities) {
+        if (!this.props.localAuthoritiesArray) {
             this.props.fetchLocalAuthorities();
         }
     }
@@ -20,23 +20,29 @@ class LocalAuthoritiesList extends Component {
     }
 
     render() {
-        if (!this.props.localAuthorities) {
+        if (!this.props.localAuthoritiesArray) {
             return <div>Loading local authorities...</div>;
         }
         return (
             <div>
                 <Link to="/">Return to list of Regions</Link>
-                <h4>Local Authorities</h4>
+                <h1>Local Authorities</h1>
                 <div className="list">
-                    {this.props.localAuthorities.map(this.renderLinks)}
+                    {this.props.localAuthoritiesArray.map(this.renderLinks)}
                 </div>
             </div>
         );
     }
 }
 
-function mapStateToProps({localAuthorities}) {
-    return {localAuthorities};
+function mapStateToProps({localAuthorities, regions}, ownProps) {
+    const region = regions[ownProps.match.params.id];
+    const localAuthoritiesArray = localAuthorities ?
+        Object.values(localAuthorities).filter(localAuthority => {
+console.log(localAuthority, region.name);
+            return region.name == localAuthority.RegionName
+        }) : localAuthorities;
+    return {localAuthoritiesArray}
 }
 
 export default connect(mapStateToProps, {fetchLocalAuthorities})(LocalAuthoritiesList);

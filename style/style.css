@@ -1,4 +1,9 @@
 
+h1 {
+    font-size: 1.25em !important;
+    margin-top: 0.5em !important;
+}
+
 .list {
     margin-top: 25px;
 }
