@@ -21,7 +21,7 @@ export function fetchRegions() {
 }
 
 export function fetchLocalAuthorities() {
-    const url = `${ROOT_URL}/Authorities/Basic`;
+    const url = `${ROOT_URL}/Authorities`;
     const request = axios.get(url, CONFIG);
 
     return dispatch => {

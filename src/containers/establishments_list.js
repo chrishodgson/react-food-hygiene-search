@@ -7,7 +7,7 @@ class EstablishmentsList extends Component {
 
     componentDidMount() {
         const {id} = this.props.match.params;
-        if (!this.props.establishments) {
+        if (!this.props.establishmentsArray) {
             this.props.fetchEstablishments(id);
         }
     }
@@ -24,32 +24,32 @@ class EstablishmentsList extends Component {
     }
 
     render() {
-        if (!this.props.establishments) {
-            return <div>Loading establishments...</div>;
+        if (!this.props.establishmentsArray) {
+            return <div>Loading Establishments...</div>;
         }
         return (
             <div>
-                {/*todo use specific region id for link*/}
-                {/*<Link to={`/region/1`}>List of Local Authorities</Link>*/}
-                <h1>Establishments</h1>
+                <Link to={`/region/${this.props.localAuthority.LocalAuthorityId}}`}>Return to list of Local
+                    Authorities</Link>
+                <h1>Establishments for {this.props.localAuthority.Name}</h1>
                 <div className="list">
-                    {this.props.establishments.map(this.renderLinks)}
+                    {this.props.establishmentsArray.map(this.renderLinks)}
                 </div>
             </div>
         );
     }
 }
 
-function mapStateToProps({establishments, localAuthoritiesMap}, ownProps) {
+function mapStateToProps({establishmentsBylocalAuthority, localAuthorities}, ownProps) {
+    const localAuthority = localAuthorities[ownProps.match.params.id];
+    const establishments = establishmentsBylocalAuthority && localAuthority ?
+        establishmentsBylocalAuthority[localAuthority.LocalAuthorityIdCode] : null;
 
-    const localAuthority = localAuthoritiesMap[ownProps.match.params.id];
-
-    console.log(localAuthority, 'lmapStateToProps - ocalAuthority');
-// console.log(establishments, 'EstablishmentsList - mapStateToProps');
-// console.log(localAuthoritiesMap, 'localAuthoritiesMap - mapStateToProps');
-
-    return {establishments: establishments[ownProps.match.params.id]}
-    //return {establishments: establishments}
+    const establishmentsArray = establishments ?
+        Object.values(establishments).filter(establishment => {
+            return establishment.LocalAuthorityCode == localAuthority.LocalAuthorityIdCode;
+        }) : establishments;
+    return {establishmentsArray, localAuthority}
 }
 
 export default connect(mapStateToProps, {fetchEstablishments})(EstablishmentsList);

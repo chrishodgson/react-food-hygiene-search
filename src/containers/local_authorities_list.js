@@ -21,12 +21,12 @@ class LocalAuthoritiesList extends Component {
 
     render() {
         if (!this.props.localAuthoritiesArray) {
-            return <div>Loading local authorities...</div>;
+            return <p>Loading Local Authorities...</p>;
         }
         return (
             <div>
                 <Link to="/">Return to list of Regions</Link>
-                <h1>Local Authorities</h1>
+                <h1>Local Authorities for {this.props.region.name}</h1>
                 <div className="list">
                     {this.props.localAuthoritiesArray.map(this.renderLinks)}
                 </div>
@@ -39,10 +39,9 @@ function mapStateToProps({localAuthorities, regions}, ownProps) {
     const region = regions[ownProps.match.params.id];
     const localAuthoritiesArray = localAuthorities ?
         Object.values(localAuthorities).filter(localAuthority => {
-console.log(localAuthority, region.name);
-            return region.name == localAuthority.RegionName
+            return localAuthority.RegionName == region.name;
         }) : localAuthorities;
-    return {localAuthoritiesArray}
+    return {localAuthoritiesArray, region}
 }
 
 export default connect(mapStateToProps, {fetchLocalAuthorities})(LocalAuthoritiesList);

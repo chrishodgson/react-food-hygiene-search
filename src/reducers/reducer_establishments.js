@@ -6,9 +6,8 @@ export default function (state = null, action) {
             const localAuthorityCode = action.payload.data.establishments.slice(0,1).pop()['LocalAuthorityCode'] || '';
             const establishments = action.payload.data.establishments || null;
 
-console.log(localAuthorityCode, 'reducer - LocalAuthorityCode');
-
-            return localAuthorityCode ? {...state, [localAuthorityCode]: establishments} : establishments;
+            return localAuthorityCode && establishments ?
+                {...state, [localAuthorityCode]: establishments} : establishments;
     }
     return state;
 }
