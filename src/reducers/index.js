@@ -4,7 +4,7 @@ import LocalAuthoritiesReducer from './reducer_local_authorities';
 import RegionsReducer from './reducer_regions';
 
 const rootReducer = combineReducers({
-    establishmentsBylocalAuthority: EstablishmentsReducer,
+    establishments: EstablishmentsReducer,
     localAuthorities: LocalAuthoritiesReducer,
     regions: RegionsReducer
 });

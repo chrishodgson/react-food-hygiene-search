@@ -19,14 +19,6 @@ h1 {
     overflow: hidden;
     text-align: center;
 }
-.establishment-item {
-    width: 200px;
-    height: 200px;
+.item span {
+    padding: 0 4px;
 }
-.establishment-item div {
-    padding: 7px 0;
-}
-.establishment-item div:nth-child(n+2) {
-    border-top: 1px solid #eee;
-}
-

@@ -14,8 +14,10 @@ class LocalAuthoritiesList extends Component {
     renderLinks(localAuthority) {
         return (
             <div key={localAuthority.LocalAuthorityId} className="item">
-                {/*<Link to={`/localAuthority/${localAuthority.LocalAuthorityId}`}>{localAuthority.Name}</Link>*/}
-                <Link to={`/localAuthorityRating/${localAuthority.LocalAuthorityId}`}>{localAuthority.Name}</Link>
+                <div>{localAuthority.Name}</div>
+                <Link to={`/localAuthority/${localAuthority.LocalAuthorityId}`}>Establishments</Link>
+                <span>|</span>
+                <Link to={`/localAuthorityRating/${localAuthority.LocalAuthorityId}`}>Ratings</Link>
             </div>
         );
     }
@@ -26,7 +28,7 @@ class LocalAuthoritiesList extends Component {
         }
         return (
             <div>
-                <Link to="/">Return to list of Regions</Link>
+                <Link to="/">Back to list of Regions</Link>
                 <h1>Local Authorities for {this.props.region.name}</h1>
                 <div className="list">
                     {this.props.localAuthoritiesArray.map(this.renderLinks)}
@@ -39,9 +41,7 @@ class LocalAuthoritiesList extends Component {
 function mapStateToProps({localAuthorities, regions}, ownProps) {
     const region = regions[ownProps.match.params.id];
     const localAuthoritiesArray = localAuthorities ?
-        Object.values(localAuthorities).filter(localAuthority => {
-            return localAuthority.RegionName == region.name;
-        }) : null;
+        Object.values(localAuthorities).filter(localAuthority => localAuthority.RegionName === region.name) : null;
     return {localAuthoritiesArray, region}
 }
 

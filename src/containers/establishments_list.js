@@ -25,13 +25,13 @@ class EstablishmentsList extends Component {
 
     render() {
         if (!this.props.establishmentsArray) {
-            return <div>Loading Establishments...</div>;
+            return <p>Loading Establishments...</p>;
         }
 
-        const link = `/region/${this.props.region.id}`;
         return (
             <div>
-                <Link to={link}>Return to list of Local Authorities for {this.props.region.name}</Link>
+                <Link to={`/region/${this.props.region.id}`}>Back to list of Local Authorities
+                    ({this.props.region.name})</Link>
                 <h1>Establishments for {this.props.localAuthority.Name}</h1>
                 <table className="table table-condensed">
                     <thead>
@@ -51,22 +51,14 @@ class EstablishmentsList extends Component {
     }
 }
 
-function mapStateToProps({establishmentsBylocalAuthority, localAuthorities, regions}, ownProps) {
-
+function mapStateToProps({establishments, localAuthorities, regions}, ownProps) {
     const localAuthority = localAuthorities[ownProps.match.params.id];
     const regionArray = regions ?
-        Object.values(regions).filter(region => {
-            return region.name == localAuthority.RegionName;
-        }) : null;
-    const region = regionArray.pop();
+        Object.values(regions).filter(region => region.name === localAuthority.RegionName) : null;
+    const region = regionArray.length ? regionArray.pop() : null;
+    const establishmentsArray = establishments && localAuthority.LocalAuthorityIdCode ?
+        Object.values(establishments[localAuthority.LocalAuthorityIdCode]) : null;
 
-    const establishments = establishmentsBylocalAuthority && localAuthority ?
-        establishmentsBylocalAuthority[localAuthority.LocalAuthorityIdCode] : null;
-
-    const establishmentsArray = establishments ?
-        Object.values(establishments).filter(establishment => {
-            return establishment.LocalAuthorityCode == localAuthority.LocalAuthorityIdCode;
-        }) : null;
     return {establishmentsArray, localAuthority, region}
 }
 

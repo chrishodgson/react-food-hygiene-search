@@ -21,7 +21,7 @@ class RegionsList extends Component {
 
     render() {
         if (!this.props.regionsArray) {
-            return <div>Loading regions...</div>
+            return <p>Loading regions...</p>
         }
 
         return (
@@ -36,7 +36,7 @@ class RegionsList extends Component {
 }
 
 function mapStateToProps({regions}) {
-    const regionsArray = regions ? Object.values(regions) : regions;
+    const regionsArray = regions ? Object.values(regions) : null;
     return {regionsArray}
 }
 
