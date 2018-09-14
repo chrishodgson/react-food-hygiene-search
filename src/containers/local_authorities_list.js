@@ -14,7 +14,8 @@ class LocalAuthoritiesList extends Component {
     renderLinks(localAuthority) {
         return (
             <div key={localAuthority.LocalAuthorityId} className="item">
-                <Link to={`/localAuthority/${localAuthority.LocalAuthorityId}`}>{localAuthority.Name}</Link>
+                {/*<Link to={`/localAuthority/${localAuthority.LocalAuthorityId}`}>{localAuthority.Name}</Link>*/}
+                <Link to={`/localAuthorityRating/${localAuthority.LocalAuthorityId}`}>{localAuthority.Name}</Link>
             </div>
         );
     }
@@ -40,7 +41,7 @@ function mapStateToProps({localAuthorities, regions}, ownProps) {
     const localAuthoritiesArray = localAuthorities ?
         Object.values(localAuthorities).filter(localAuthority => {
             return localAuthority.RegionName == region.name;
-        }) : localAuthorities;
+        }) : null;
     return {localAuthoritiesArray, region}
 }
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-class RatingsList extends Component {
+class LocalAuthorityRatingsList extends Component {
     renderRatings(establishment) {
         return (
             <tr key={establishment.FHRSID}>

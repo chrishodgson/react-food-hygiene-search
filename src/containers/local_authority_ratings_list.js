@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {fetchEstablishments} from '../actions/index';
 import {Link} from 'react-router-dom';
 
-class EstablishmentsList extends Component {
+class LocalAuthorityRatingsList extends Component {
 
     componentDidMount() {
         const {id} = this.props.match.params;
@@ -57,7 +57,7 @@ function mapStateToProps({establishmentsBylocalAuthority, localAuthorities, regi
     const regionArray = regions ?
         Object.values(regions).filter(region => {
             return region.name == localAuthority.RegionName;
-        }) : null;
+        }) : regions;
     const region = regionArray.pop();
 
     const establishments = establishmentsBylocalAuthority && localAuthority ?
@@ -67,7 +67,13 @@ function mapStateToProps({establishmentsBylocalAuthority, localAuthorities, regi
         Object.values(establishments).filter(establishment => {
             return establishment.LocalAuthorityCode == localAuthority.LocalAuthorityIdCode;
         }) : null;
-    return {establishmentsArray, localAuthority, region}
+
+    const ratingsArray = establishmentsArray ?
+        establishmentsArray.each(establishment => {
+            return establishment.LocalAuthorityCode == localAuthority.LocalAuthorityIdCode;
+        }) : null;
+
+    return {ratingsArray, localAuthority, region}
 }
 
 export default connect(mapStateToProps, {fetchEstablishments})(EstablishmentsList);
