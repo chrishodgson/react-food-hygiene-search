@@ -31,7 +31,7 @@ class EstablishmentsList extends Component {
         const link = `/region/${this.props.region.id}`;
         return (
             <div>
-                <Link to={link}>Return to {this.props.region.name}</Link>
+                <Link to={link}>Return to list of Local Authorities for {this.props.region.name}</Link>
                 <h1>Establishments for {this.props.localAuthority.Name}</h1>
                 <table className="table table-condensed">
                     <thead>
@@ -67,7 +67,7 @@ function mapStateToProps({establishmentsBylocalAuthority, localAuthorities, regi
         Object.values(establishments).filter(establishment => {
             return establishment.LocalAuthorityCode == localAuthority.LocalAuthorityIdCode;
         }) : establishments;
-    return {establishmentsArray, region}
+    return {establishmentsArray, localAuthority, region}
 }
 
 export default connect(mapStateToProps, {fetchEstablishments})(EstablishmentsList);
