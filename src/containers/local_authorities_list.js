@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchLocalAuthorities} from '../actions/index';
+import history from "../history";
 
 class LocalAuthoritiesList extends Component {
 
     componentDidMount() {
+        if (!this.props.region) {
+            history.push('/');
+        }
         if (!this.props.localAuthoritiesArray) {
             this.props.fetchLocalAuthorities();
         }
@@ -15,9 +19,9 @@ class LocalAuthoritiesList extends Component {
         return (
             <div key={localAuthority.LocalAuthorityId} className="item">
                 <div>{localAuthority.Name}</div>
-                <Link to={`/localAuthority/${localAuthority.LocalAuthorityId}`}>Establishments</Link>
+                <Link to={`/localAuthority/${localAuthority.LocalAuthorityId}`}>Search</Link>
                 <span>|</span>
-                <Link to={`/localAuthorityRating/${localAuthority.LocalAuthorityId}`}>Ratings</Link>
+                <Link to={`/localAuthorityRating/${localAuthority.LocalAuthorityId}`}>Summary</Link>
             </div>
         );
     }
@@ -39,8 +43,8 @@ class LocalAuthoritiesList extends Component {
 }
 
 function mapStateToProps({localAuthorities, regions}, ownProps) {
-    const region = regions[ownProps.match.params.id];
-    const localAuthoritiesArray = localAuthorities ?
+    const region = regions ? regions[ownProps.match.params.id] : null;
+    const localAuthoritiesArray = localAuthorities && region ?
         Object.values(localAuthorities).filter(localAuthority => localAuthority.RegionName === region.name) : null;
     return {localAuthoritiesArray, region}
 }

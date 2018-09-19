@@ -3,10 +3,14 @@ import {connect} from 'react-redux';
 import {fetchEstablishments} from '../actions/index';
 import {Link} from 'react-router-dom';
 import _ from "lodash";
+import history from "../history";
 
 class LocalAuthorityRatingsList extends Component {
 
     componentDidMount() {
+        if (!this.props.region || !this.props.localAuthority) {
+            history.push('/');
+        }
         const {id} = this.props.match.params;
         if (!this.props.establishments) {
             this.props.fetchEstablishments(id);
@@ -49,13 +53,16 @@ class LocalAuthorityRatingsList extends Component {
 }
 
 function mapStateToProps({establishments, localAuthorities, regions}, ownProps) {
-    const localAuthority = localAuthorities[ownProps.match.params.id];
-    const regionArray = regions ?
+    const localAuthority = localAuthorities ? localAuthorities[ownProps.match.params.id] : null;
+    const regionArray = regions  && localAuthority ?
         Object.values(regions).filter(region => region.name === localAuthority.RegionName) : null;
-    const region = regionArray.length ? regionArray.pop() : null;
-    const establishmentsArray = establishments && localAuthority.LocalAuthorityIdCode ?
+    const region = regionArray && regionArray ? regionArray.pop() : null;
+    const establishmentsArray = establishments &&
+                                localAuthority.LocalAuthorityIdCode &&
+                                establishments[localAuthority.LocalAuthorityIdCode] ?
         Object.values(establishments[localAuthority.LocalAuthorityIdCode]) : null;
 
+    // todo move to reducer and break down by business type
     let ratingsArray = null;
     if (establishmentsArray) {
         const ratings = {};

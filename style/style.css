@@ -20,5 +20,9 @@ h1 {
     text-align: center;
 }
 .item span {
-    padding: 0 4px;
+    padding: 6px;
+}
+
+.item a {
+    padding: 10px 0 0 0;
 }
