@@ -27,13 +27,15 @@ class LocalAuthorityRatingsList extends Component {
 
     render() {
         if (!this.props.ratingsArray) {
-            return <p>Loading Ratings...</p>;
+            return <div className="loading">Loading Ratings...</div>;
         }
 
         return (
             <div>
-                <Link to={`/region/${this.props.region.id}`}>Back to list of Local Authorities
-                    ({this.props.region.name})</Link>
+                <Link className="back" to={`/region/${this.props.region.id}`}>
+                    Back to list of Local Authorities for {this.props.region.name}
+                </Link>
+
                 <h1>Ratings for {this.props.localAuthority.Name}</h1>
                 <table className="table table-condensed">
                     <thead>
@@ -53,12 +55,12 @@ class LocalAuthorityRatingsList extends Component {
 
 function mapStateToProps({ratings, localAuthorities, regions}, ownProps) {
     const localAuthority = localAuthorities ? localAuthorities[ownProps.match.params.id] : null;
-    const regionArray = regions  && localAuthority ?
+    const regionArray = regions && localAuthority ?
         Object.values(regions).filter(region => region.name === localAuthority.RegionName) : null;
     const region = regionArray && regionArray ? regionArray.pop() : null;
     const ratingsArray = ratings &&
-                         localAuthority.LocalAuthorityIdCode &&
-                         ratings[localAuthority.LocalAuthorityIdCode] ?
+    localAuthority.LocalAuthorityIdCode &&
+    ratings[localAuthority.LocalAuthorityIdCode] ?
         Object.values(ratings[localAuthority.LocalAuthorityIdCode]) : null;
 
     return {ratingsArray, localAuthority, region}

@@ -21,7 +21,7 @@ class RegionsList extends Component {
 
     render() {
         if (!this.props.regionsArray) {
-            return <p>Loading regions...</p>
+            return <div className="loading">Loading regions...</div>
         }
 
         return (

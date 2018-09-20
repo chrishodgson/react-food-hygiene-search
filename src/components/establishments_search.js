@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
+//todo make into a simple const function ?
 class EstablishmentsSearch extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -9,19 +11,18 @@ class EstablishmentsSearch extends Component {
     }
 
     onInputChange(term) {
-        console.log(term, 'onInputChange');
         this.setState({term: term});
         this.props.onSearchTermChange(term);
     }
 
     render() {
         return (
-            <div>
-                <h3>Search Establishments</h3>
+            <p>
                 <input className="form-control"
-                        onChange={event => this.onInputChange(event.target.value)}
-                        value={this.state.term} />
-            </div>
+                       onChange={event => this.onInputChange(event.target.value)}
+                       value={this.state.term}
+                       placeholder="Search on Business Name"/>
+            </p>
         );
     }
 }

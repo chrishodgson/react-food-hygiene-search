@@ -28,11 +28,11 @@ class LocalAuthoritiesList extends Component {
 
     render() {
         if (!this.props.localAuthoritiesArray) {
-            return <p>Loading Local Authorities...</p>;
+            return <div className="loading">Loading Local Authorities...</div>;
         }
         return (
             <div>
-                <Link to="/">Back to list of Regions</Link>
+                <Link className="back" to="/">Back to list of Regions</Link>
                 <h1>Local Authorities for {this.props.region.name}</h1>
                 <div className="list">
                     {this.props.localAuthoritiesArray.map(this.renderLinks)}

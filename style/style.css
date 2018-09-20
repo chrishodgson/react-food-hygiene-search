@@ -1,7 +1,10 @@
+a.back {
+    font-size: 1.25em;
+}
 
 h1 {
     font-size: 1.25em !important;
-    margin-top: 0.5em !important;
+    margin-top: 1em !important;
 }
 
 .list {
@@ -15,14 +18,22 @@ h1 {
     border: 1px solid #eee;
     border-radius: 5px;
     width: 200px;
-    height: 75px;
+    height: 100px;
     overflow: hidden;
     text-align: center;
+    font-size: 1.15em;
 }
 .item span {
     padding: 6px;
 }
 
 .item a {
-    padding: 10px 0 0 0;
+    padding-top: 0.25em;
+    display:inline-block;
+}
+
+.loading {
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 2em;
 }
