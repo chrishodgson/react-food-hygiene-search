@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
 
 class EstablishmentsSearch extends Component {
     constructor(props) {
@@ -19,10 +17,7 @@ class EstablishmentsSearch extends Component {
     render() {
         return (
             <div>
-                <Link to={`/region/${this.props.region.id}`}>Back to list of Local Authorities
-                    ({this.props.region.name})</Link>
-                <h1>Search Establishments in {this.props.localAuthority.Name}</h1>
-
+                <h3>Search Establishments</h3>
                 <input className="form-control"
                         onChange={event => this.onInputChange(event.target.value)}
                         value={this.state.term} />
@@ -31,12 +26,4 @@ class EstablishmentsSearch extends Component {
     }
 }
 
-function mapStateToProps({regions}, ownProps) {
-    const localAuthority = localAuthorities[ownProps.match.params.id];
-    const regionArray = regions ?
-        Object.values(regions).filter(region => region.name === localAuthority.RegionName) : null;
-    const region = regionArray ? regionArray.pop() : null;
-    return {localAuthority, region}
-}
-
-export default connect(mapStateToProps)(EstablishmentsSearch);
+export default EstablishmentsSearch;

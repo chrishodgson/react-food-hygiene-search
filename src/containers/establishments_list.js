@@ -36,7 +36,7 @@ console.log(this.props, 'this.props');
 
         return (
             <div>
-                <h3>Establishments for {this.props.localAuthority.Name}</h3>
+                <h3>Establishment Search Results...</h3>
                 <table className="table table-condensed">
                     <thead>
                     <tr>
@@ -55,8 +55,9 @@ console.log(this.props, 'this.props');
     }
 }
 
+//todo move to parent and make this a component ?
 function mapStateToProps({establishments, localAuthorities}, ownProps) {
-    const localAuthority = localAuthorities[ownProps.match.params.id];
+    const localAuthority = localAuthorities ? localAuthorities[ownProps.match.params.id] : null;
     const establishmentsArray = establishments &&
                                 localAuthority.LocalAuthorityIdCode &&
                                 establishments[localAuthority.LocalAuthorityIdCode] ?

@@ -10,7 +10,7 @@ import reducers from './reducers';
 import RegionsList from './containers/regions_list';
 import LocalAuthoritiesList from './containers/local_authorities_list';
 import LocalAuthorityRatingsList from './containers/local_authority_ratings_list';
-import Establishments from './components/establishments';
+import Establishments from './containers/establishments';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
