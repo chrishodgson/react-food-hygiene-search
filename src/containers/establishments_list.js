@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchEstablishments} from '../actions/index';
-import {Link} from 'react-router-dom';
 import history from "../history";
 
 class EstablishmentsList extends Component {
@@ -16,7 +15,7 @@ class EstablishmentsList extends Component {
         }
     }
 
-    renderLinks(establishment) {
+    renderRows(establishment) {
         return (
             <tr key={establishment.FHRSID}>
                 <td>{establishment.BusinessName}</td>
@@ -28,15 +27,16 @@ class EstablishmentsList extends Component {
     }
 
     render() {
+
+console.log(this.props, 'this.props');
+
         if (!this.props.establishmentsArray) {
             return <p>Loading Establishments...</p>;
         }
 
         return (
             <div>
-                <Link to={`/region/${this.props.region.id}`}>Back to list of Local Authorities
-                    ({this.props.region.name})</Link>
-                <h1>Establishments for {this.props.localAuthority.Name}</h1>
+                <h3>Establishments for {this.props.localAuthority.Name}</h3>
                 <table className="table table-condensed">
                     <thead>
                     <tr>
@@ -47,7 +47,7 @@ class EstablishmentsList extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.props.establishmentsArray.map(this.renderLinks)}
+                    {this.props.establishmentsArray.map(this.renderRows)}
                     </tbody>
                 </table>
             </div>
@@ -55,17 +55,14 @@ class EstablishmentsList extends Component {
     }
 }
 
-function mapStateToProps({establishments, localAuthorities, regions}, ownProps) {
+function mapStateToProps({establishments, localAuthorities}, ownProps) {
     const localAuthority = localAuthorities[ownProps.match.params.id];
-    const regionArray = regions ?
-        Object.values(regions).filter(region => region.name === localAuthority.RegionName) : null;
-    const region = regionArray.length ? regionArray.pop() : null;
     const establishmentsArray = establishments &&
                                 localAuthority.LocalAuthorityIdCode &&
                                 establishments[localAuthority.LocalAuthorityIdCode] ?
         Object.values(establishments[localAuthority.LocalAuthorityIdCode]) : null;
 
-    return {establishmentsArray, localAuthority, region}
+    return {establishmentsArray, localAuthority}
 }
 
 export default connect(mapStateToProps, {fetchEstablishments})(EstablishmentsList);

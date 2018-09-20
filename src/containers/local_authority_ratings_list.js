@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchEstablishments} from '../actions/index';
 import {Link} from 'react-router-dom';
-import _ from "lodash";
 import history from "../history";
 
 class LocalAuthorityRatingsList extends Component {
@@ -52,35 +51,16 @@ class LocalAuthorityRatingsList extends Component {
     }
 }
 
-function mapStateToProps({establishments, localAuthorities, regions}, ownProps) {
+function mapStateToProps({ratings, localAuthorities, regions}, ownProps) {
     const localAuthority = localAuthorities ? localAuthorities[ownProps.match.params.id] : null;
     const regionArray = regions  && localAuthority ?
         Object.values(regions).filter(region => region.name === localAuthority.RegionName) : null;
     const region = regionArray && regionArray ? regionArray.pop() : null;
-    const establishmentsArray = establishments &&
-                                localAuthority.LocalAuthorityIdCode &&
-                                establishments[localAuthority.LocalAuthorityIdCode] ?
-        Object.values(establishments[localAuthority.LocalAuthorityIdCode]) : null;
+    const ratingsArray = ratings &&
+                         localAuthority.LocalAuthorityIdCode &&
+                         ratings[localAuthority.LocalAuthorityIdCode] ?
+        Object.values(ratings[localAuthority.LocalAuthorityIdCode]) : null;
 
-    // todo move to reducer and break down by business type
-    let ratingsArray = null;
-    if (establishmentsArray) {
-        const ratings = {};
-        establishmentsArray.forEach(establishment => {
-            if (!ratings.hasOwnProperty(establishment.RatingValue)) {
-                ratings[establishment.RatingValue] = 0;
-            }
-            ratings[establishment.RatingValue]++;
-        });
-        ratingsArray = [];
-        for(const key in ratings) {
-            ratingsArray.push({
-                "RatingValue": key,
-                "Count": ratings[key]
-            });
-        }
-        ratingsArray = _.sortBy(ratingsArray, 'Count').reverse();
-    }
     return {ratingsArray, localAuthority, region}
 }
 
