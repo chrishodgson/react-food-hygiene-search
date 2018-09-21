@@ -12,7 +12,10 @@ class Establishments extends Component {
         super(props);
         this.state = {
             term: '',
-            results: []
+            establishments: [],
+            pagedResults: [],
+            perPage: 10,
+            pageNumber: 0
         };
     }
 
@@ -26,18 +29,34 @@ class Establishments extends Component {
         }
     }
 
-    //todo paginate
     handleSearch(term) {
-        this.setState({
-            term: term
-        });
         const pattern = new RegExp(term, 'gi');
         const establishments = term ? this.props.establishmentsArray.filter(establishment => {
             return pattern.test(establishment.BusinessName);
         }) : [];
-
         this.setState({
-            results: establishments
+            term: term,
+            pageNumber: 0,
+            establishments: establishments
+        });
+        this.setNextPage();
+    }
+
+    setNextPage() {
+        const pageNumber = this.state.pageNumber + 1;
+        this.setResults(pageNumber);
+    }
+
+    setPreviousPage() {
+        const pageNumber = this.state.pageNumber - 1;
+        this.setResults(pageNumber);
+    }
+
+    setResults(pageNumber) {
+        const start = pageNumber * this.state.perPage;
+        this.setState({
+            pageNumber: pageNumber,
+            pagedResults: this.state.establishments.slice(start, this.state.perPage)
         });
     }
 
@@ -47,7 +66,6 @@ class Establishments extends Component {
         }
 
         const establishmentSearch = _.debounce(term => this.handleSearch(term), 300);
-
         return (
             <div>
                 <Link className="back" to={`/region/${this.props.region.id}`}>
@@ -57,7 +75,10 @@ class Establishments extends Component {
                 <h1>Establishments for {this.props.localAuthority.Name}</h1>
 
                 <EstablishmentsSearch onSearchTermChange={establishmentSearch}/>
-                <EstablishmentsList establishments={this.state.results} search={this.state.term}/>
+                <EstablishmentsList results={this.state.pagedResults}
+                                    search={this.state.term}
+                                    next={this.setNextPage()}
+                                    previous={this.setPreviousPage()}/>
             </div>
         );
     }
