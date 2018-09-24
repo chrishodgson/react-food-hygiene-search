@@ -55,14 +55,20 @@ class Establishments extends Component {
     }
 
     setResults(pageNumber) {
-        const start = (pageNumber===1 ? 0 : (pageNumber-1) * this.state.perPage);
-        //const showPrev = this.state.establishments.count() >= start;
-        //const showNext = this.state.establishments.count() <= end;
-        const end = start + this.state.perPage;
+        const start = this.getStart(pageNumber);
+        const end = this.getEnd(start);
         this.setState({
             pageNumber: pageNumber,
             pagedResults: this.state.establishments.slice(start, end)
         });
+    }
+
+    getStart(pageNumber) {
+        return (pageNumber <= 1 ? 0 : (pageNumber - 1) * this.state.perPage);
+    }
+
+    getEnd(start) {
+        return start + this.state.perPage;
     }
 
     render() {
@@ -70,7 +76,14 @@ class Establishments extends Component {
             return <div className="loading">Loading establishments...</div>
         }
 
+
         const establishmentSearch = _.debounce(term => this.handleSearch(term), 300);
+        const total = this.state.establishments.length;
+        const start = this.getStart(this.state.pageNumber);
+        const end = this.getEnd(start);
+        const showNext = this.getEnd(start) < total;
+        const showPrev = start > 0;
+
         return (
             <div>
                 <Link className="back" to={`/region/${this.props.region.id}`}>
@@ -81,9 +94,13 @@ class Establishments extends Component {
 
                 <EstablishmentsSearch onSearchTermChange={establishmentSearch}/>
                 <EstablishmentsList results={this.state.pagedResults}
+                                    total={total}
+                                    start={start}
+                                    end={end}
+                                    page={this.state.pageNumber}
                                     search={this.state.term}
-                                    next={this.setNextPage}
-                                    previous={this.setPreviousPage}/>
+                                    next={showNext ? this.setNextPage : null}
+                                    previous={showPrev ? this.setPreviousPage : null}/>
             </div>
         );
     }

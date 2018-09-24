@@ -20,11 +20,11 @@ const EstablishmentsList = props => {
 
     return (
         <div>
-            <p>{props.results.length} results found matching '{props.search}'</p>
-
+            <p>Displaying page {props.page} containing results {props.start} to {props.end} found matching
+                '{props.search}'. Total number of results: {props.total} </p>
             <p>
-                <Link className={props.previous ? 'prev' : 'prev disable'} to='#' onClick={props.previous}>Previous</Link>
-                <Link className={props.previous ? 'next' : 'next disable'} to='#' onClick={props.next}>Next</Link>
+                {props.previous ? <Link className='prev' to='#' onClick={props.previous}>Previous</Link> : ''}
+                {props.next ? <Link className='next' to='#' onClick={props.next}>Next</Link> : ''}
             </p>
 
             <table className="table table-condensed">
