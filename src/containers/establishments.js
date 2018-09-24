@@ -76,11 +76,11 @@ class Establishments extends Component {
             return <div className="loading">Loading establishments...</div>
         }
 
-
         const establishmentSearch = _.debounce(term => this.handleSearch(term), 300);
         const total = this.state.establishments.length;
         const start = this.getStart(this.state.pageNumber);
         const end = this.getEnd(start);
+        const numPages = Math.ceil(total / this.state.perPage);
         const showNext = this.getEnd(start) < total;
         const showPrev = start > 0;
 
@@ -97,7 +97,8 @@ class Establishments extends Component {
                                     total={total}
                                     start={start}
                                     end={end}
-                                    page={this.state.pageNumber}
+                                    pageNumber={this.state.pageNumber}
+                                    numPages={numPages}
                                     search={this.state.term}
                                     next={showNext ? this.setNextPage : null}
                                     previous={showPrev ? this.setPreviousPage : null}/>
