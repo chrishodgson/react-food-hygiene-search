@@ -17,6 +17,10 @@ class Establishments extends Component {
             perPage: 10,
             pageNumber: 0
         };
+
+        this.handleSearch = this.handleSearch.bind(this);
+        this.setNextPage = this.setNextPage.bind(this);
+        this.setPreviousPage = this.setPreviousPage.bind(this);
     }
 
     componentDidMount() {
@@ -34,29 +38,30 @@ class Establishments extends Component {
         const establishments = term ? this.props.establishmentsArray.filter(establishment => {
             return pattern.test(establishment.BusinessName);
         }) : [];
+
         this.setState({
             term: term,
             pageNumber: 0,
             establishments: establishments
-        });
-        this.setNextPage();
+        }, () => this.setNextPage());
     }
 
     setNextPage() {
-        const pageNumber = this.state.pageNumber + 1;
-        this.setResults(pageNumber);
+        this.setResults(this.state.pageNumber + 1);
     }
 
     setPreviousPage() {
-        const pageNumber = this.state.pageNumber - 1;
-        this.setResults(pageNumber);
+        this.setResults(this.state.pageNumber - 1);
     }
 
     setResults(pageNumber) {
-        const start = pageNumber * this.state.perPage;
+        const start = (pageNumber===1 ? 0 : (pageNumber-1) * this.state.perPage);
+        //const showPrev = this.state.establishments.count() >= start;
+        //const showNext = this.state.establishments.count() <= end;
+        const end = start + this.state.perPage;
         this.setState({
             pageNumber: pageNumber,
-            pagedResults: this.state.establishments.slice(start, this.state.perPage)
+            pagedResults: this.state.establishments.slice(start, end)
         });
     }
 
@@ -77,8 +82,8 @@ class Establishments extends Component {
                 <EstablishmentsSearch onSearchTermChange={establishmentSearch}/>
                 <EstablishmentsList results={this.state.pagedResults}
                                     search={this.state.term}
-                                    next={this.setNextPage()}
-                                    previous={this.setPreviousPage()}/>
+                                    next={this.setNextPage}
+                                    previous={this.setPreviousPage}/>
             </div>
         );
     }

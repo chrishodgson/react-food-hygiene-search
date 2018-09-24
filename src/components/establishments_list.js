@@ -23,8 +23,8 @@ const EstablishmentsList = props => {
             <p>{props.results.length} results found matching '{props.search}'</p>
 
             <p>
-                <Link to='#' onClick={props.previous}>Previous</Link>
-                <Link to='#' onClick={props.next}>Next</Link>
+                <Link className={props.previous ? 'prev' : 'prev disable'} to='#' onClick={props.previous}>Previous</Link>
+                <Link className={props.previous ? 'next' : 'next disable'} to='#' onClick={props.next}>Next</Link>
             </p>
 
             <table className="table table-condensed">
