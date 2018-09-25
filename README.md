@@ -11,14 +11,14 @@ published via an API by the UK Food Standards Agency.
 ### 1. Select a Region
 ![screenshot1](./screenshots/screenshot1.png)
 
-### 2. Select a Local Authority for the Region
+### 2. Select a Local Authority for a Region
 ![screenshot2](./screenshots/screenshot2.png)
 
-### 3. Show a Ratings Summary for Establishments across the Local Authority
-![screenshot2](./screenshots/screenshot2.png)
+### 3. Show a Ratings Summary of Establishments in a Local Authority
+![screenshot3](./screenshots/screenshot3.png)
 
-### 4. Search Establishments across the Local Authority
-![screenshot1](./screenshots/screenshot1.png)
+### 4. Search for Establishments in a Local Authority
+![screenshot4](./screenshots/screenshot4.png)
 
 
 ## Getting Started
