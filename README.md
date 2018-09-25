@@ -1,6 +1,25 @@
 # ReactReduxFoodHygieneSearch
 
-A simple search screen that displays Food Hygiene Ratings across a selected Local Authority.
+An application that displays a summary of Food Hygiene Ratings across a selected Local Authority and also 
+the option to search for Ratings at specific Establishments. 
+Uses [Food Hygiene Ratings Open Data](http://ratings.food.gov.uk/open-data/en-GB) 
+published via an API by the UK Food Standards Agency. 
+
+
+## Screenshots
+
+![screenshot1](./screenshots/screenshot1.png)
+*Select a Region*
+
+![screenshot2](./screenshots/screenshot2.png)
+*Select a Local Authority for the Region*
+
+![screenshot2](./screenshots/screenshot2.png)
+*Show a Ratings Summary for Establishments across the Local Authority*
+
+![screenshot1](./screenshots/screenshot1.png)
+*Search Establishments across the Local Authority*
+
 
 ## Getting Started
 
@@ -13,5 +32,3 @@ then start the webpack process with the following:
 > npm install
 > npm start
 ```
-
-This repo is work in Progress :)

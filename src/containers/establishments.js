@@ -37,11 +37,12 @@ class Establishments extends Component {
         const pattern = new RegExp(term, 'gi');
         const establishments = term ? this.props.establishmentsArray.filter(establishment => {
             return pattern.test(establishment.BusinessName);
-        }) : [];
+        }) : this.props.establishmentsArray;
 
         this.setState({
             term: term,
             pageNumber: 0,
+            pagedResults: [],
             establishments: establishments
         }, () => this.setNextPage());
     }
@@ -75,7 +76,6 @@ class Establishments extends Component {
         if (!this.props.establishmentsArray) {
             return <div className="loading">Loading establishments...</div>
         }
-
         const establishmentSearch = _.debounce(term => this.handleSearch(term), 300);
         const total = this.state.establishments.length;
         const start = this.getStart(this.state.pageNumber);
