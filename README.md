@@ -6,6 +6,18 @@ the option to search for Ratings at specific Establishments.
 Uses data published by the [UK Food Standards Agency API](http://ratings.food.gov.uk/open-data/en-GB). 
 
 
+## Getting Started
+
+The following assumes that `npm` is installed. Checkout this repo, install dependencies, 
+then start the webpack process with the following:
+
+```
+> git clone https://github.com/chrishodgson/ReactReduxFoodHygieneSearch.git
+> cd ReactReduxFoodHygieneSearch
+> npm install
+> npm start
+```
+
 ## Screenshots
 
 - Select a Region
@@ -20,15 +32,3 @@ Uses data published by the [UK Food Standards Agency API](http://ratings.food.go
 - Search for Establishments in a Local Authority
 ![screenshot4](./screenshots/screenshot4.png)
 
-
-## Getting Started
-
-The following assumes that `npm` is installed. Checkout this repo, install dependencies, 
-then start the webpack process with the following:
-
-```
-> git clone https://github.com/chrishodgson/ReactReduxFoodHygieneSearch.git
-> cd ReactReduxFoodHygieneSearch
-> npm install
-> npm start
-```
