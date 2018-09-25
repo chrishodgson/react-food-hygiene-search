@@ -8,17 +8,17 @@ published via an API by the UK Food Standards Agency.
 
 ## Screenshots
 
+### 1. Select a Region
 ![screenshot1](./screenshots/screenshot1.png)
-*Select a Region*
 
+### 2. Select a Local Authority for the Region
 ![screenshot2](./screenshots/screenshot2.png)
-*Select a Local Authority for the Region*
 
+### 3. Show a Ratings Summary for Establishments across the Local Authority
 ![screenshot2](./screenshots/screenshot2.png)
-*Show a Ratings Summary for Establishments across the Local Authority*
 
+### 4. Search Establishments across the Local Authority
 ![screenshot1](./screenshots/screenshot1.png)
-*Search Establishments across the Local Authority*
 
 
 ## Getting Started
