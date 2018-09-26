@@ -11,11 +11,12 @@ import RegionsList from './containers/regions_list';
 import LocalAuthoritiesList from './containers/local_authorities_list';
 import LocalAuthorityRatingsList from './containers/local_authority_ratings_list';
 import Establishments from './containers/establishments';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(...[thunk])));
 
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={store}>
         <Router history={history}>
             <Switch>
                 <Route exact path="/" component={RegionsList}/>
