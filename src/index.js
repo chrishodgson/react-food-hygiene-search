@@ -13,7 +13,14 @@ import LocalAuthorityRatingsList from './containers/local_authority_ratings_list
 import Establishments from './containers/establishments';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(...[thunk])));
+const middleware = [thunk];
+
+//const store = createStore(reducers, applyMiddleware(...middleware)); //without dev tools
+
+const composeEnhancers = composeWithDevTools({});
+const store = createStore(reducers, composeEnhancers(
+    applyMiddleware(...middleware),
+));
 
 ReactDOM.render(
     <Provider store={store}>
